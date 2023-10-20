@@ -73,4 +73,6 @@ The script utilizes a JSON schema for creating tables. Below is an example of th
 
 ## License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+  
+Copyright (c) Andy Bruno Daubner (i6324958) and Che Hang Ng (i6309628)

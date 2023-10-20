@@ -1,3 +1,5 @@
+# Copyright (c) Andy Bruno Daubner (i6324958) and Che Hang Ng (i6309628)
+
 import pyodbc
 import logging
 import os
