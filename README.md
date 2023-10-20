@@ -1,6 +1,8 @@
 # MySQL Table Creator
 
-A Python script to interact with a MySQL database using pyodbc.
+A Python script to interact with a MySQL database using pyodbc.  
+  
+Allows for the safe creation of tables based on potentialy unsafe data.
 
 ## Requirements
 
@@ -28,7 +30,6 @@ Ensure that the MySQL ODBC 8.1 Unicode Driver is installed and the following env
 The script provides several functions for managing the MySQL database, read the docs for more information:
 
 - `connect()`: Connects to a MySQL database.
-- `drop_all(con, cursor)`: Drops the 'Project' database and creates a new one.
 - `table_creator(table_schema, con, cursor)`: Creates a table in the database using a JSON schema.
 - `append_row(table_name, column_names, row, con, cursor)`: Appends a row to an arbitrary table in the database.
 
@@ -72,7 +73,6 @@ The script utilizes a JSON schema for creating tables. Below is an example of th
 ```
 
 ## License
-
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).  
   
 Copyright (c) Andy Bruno Daubner (i6324958) and Che Hang Ng (i6309628)
