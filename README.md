@@ -19,11 +19,11 @@ pip install git+https://github.com/adaubner/mysql-table-creator.git
 
 Ensure that the MySQL ODBC 8.1 Unicode Driver is installed and the following environment variables are correctly configured:
 
-- DATABASE_PROJECT_IP: The IP address of the database
-- DATABASE_PROJECT_PORT: The port of the database
-- DATABASE_PROJECT_USERNAME: The username of the database
-- DATABASE_PROJECT_PASSWORD: The password of the database
-- DATABASE_PROJECT_DATABASE: The name of the database
+- DATABASE_IP: The IP address of the database
+- DATABASE_PORT: The port of the database
+- DATABASE_USERNAME: The username of the database
+- DATABASE_PASSWORD: The password of the database
+- DATABASE_DATABASE: The name of the database
 
 The script provides several functions for managing the MySQL database, read the docs for more information:
 

@@ -135,11 +135,11 @@ def connect() -> tuple[pyodbc.Connection, pyodbc.Cursor]:
     Requires the MySQL ODBC 8.1 Unicode Driver to be installed
 
     Uses the environment variables:
-        DATABASE_PROJECT_IP: The IP address of the database
-        DATABASE_PROJECT_PORT: The port of the database
-        DATABASE_PROJECT_USERNAME: The username of the database
-        DATABASE_PROJECT_PASSWORD: The password of the database
-        DATABASE_PROJECT_DATABASE: The name of the database
+        DATABASE_IP: The IP address of the database
+        DATABASE_PORT: The port of the database
+        DATABASE_USERNAME: The username of the database
+        DATABASE_PASSWORD: The password of the database
+        DATABASE_DATABASE: The name of the database
 
     Returns:
         tuple: A tuple containing the connection and cursor object
@@ -155,11 +155,11 @@ def connect() -> tuple[pyodbc.Connection, pyodbc.Cursor]:
     with open(lib_dir + "/sql_literals.json", "r") as f:
         sql_literals = json.load(f)
 
-    ip = os.getenv("DATABASE_PROJECT_IP")
-    port = os.getenv("DATABASE_PROJECT_PORT")
-    username = os.getenv("DATABASE_PROJECT_USERNAME")
-    password = os.getenv("DATABASE_PROJECT_PASSWORD")
-    database = os.getenv("DATABASE_PROJECT_DATABASE")
+    ip = os.getenv("DATABASE_IP")
+    port = os.getenv("DATABASE_PORT")
+    username = os.getenv("DATABASE_USERNAME")
+    password = os.getenv("DATABASE_PASSWORD")
+    database = os.getenv("DATABASE_DATABASE")
 
     if not (ip and port and username and password and database):
         raise Exception("Missing environment variables")
