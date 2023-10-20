@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module sql_manager</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">sql_manager</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/home/andy/Code/mysql_table_creator/sql_manager.py">/home/andy/Code/mysql_table_creator/sql_manager.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="json.html">json</a><br>
+<a href="logging.html">logging</a><br>
+</td><td class="multicolumn"><a href="os.html">os</a><br>
+<a href="pyodbc.html">pyodbc</a><br>
+</td><td class="multicolumn"><a href="re.html">re</a><br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-allowed_constraint"><strong>allowed_constraint</strong></a>(constraint: str) -&gt; str</dt></dl>
+ <dl><dt><a name="-allowed_type"><strong>allowed_type</strong></a>(type: str) -&gt; str</dt><dd><span class="code">Check&nbsp;if&nbsp;a&nbsp;sql&nbsp;data&nbsp;type&nbsp;is&nbsp;allowed,&nbsp;prevents&nbsp;sql&nbsp;injection<br>
+&nbsp;<br>
+The&nbsp;datatype&nbsp;is&nbsp;checked&nbsp;agains&nbsp;a&nbsp;list&nbsp;of&nbsp;allowed&nbsp;data&nbsp;types&nbsp;in&nbsp;MySQL&nbsp;8.1<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;(str):&nbsp;The&nbsp;sql&nbsp;data&nbsp;type&nbsp;to&nbsp;check<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;data&nbsp;type&nbsp;is&nbsp;not&nbsp;allowed<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;str:&nbsp;the&nbsp;data&nbsp;type&nbsp;(made&nbsp;lowercase)&nbsp;if&nbsp;it&nbsp;is&nbsp;allowed</span></dd></dl>
+ <dl><dt><a name="-allowed_value_column"><strong>allowed_value_column</strong></a>(value: str) -&gt; str</dt><dd><span class="code">Check&nbsp;if&nbsp;a&nbsp;column&nbsp;name&nbsp;is&nbsp;allowed,&nbsp;prevents&nbsp;sql&nbsp;injection<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;(str):&nbsp;The&nbsp;column&nbsp;name&nbsp;to&nbsp;check<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;column&nbsp;name&nbsp;is&nbsp;not&nbsp;allowed<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;str:&nbsp;the&nbsp;column&nbsp;name&nbsp;if&nbsp;it&nbsp;is&nbsp;allowed</span></dd></dl>
+ <dl><dt><a name="-allowed_value_table"><strong>allowed_value_table</strong></a>(value: str) -&gt; str</dt><dd><span class="code">Check&nbsp;if&nbsp;a&nbsp;table&nbsp;name&nbsp;is&nbsp;allowed,&nbsp;prevents&nbsp;sql&nbsp;injection<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;(str):&nbsp;The&nbsp;table&nbsp;name&nbsp;to&nbsp;check<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;table&nbsp;name&nbsp;is&nbsp;not&nbsp;allowed<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;str:&nbsp;the&nbsp;table&nbsp;name&nbsp;if&nbsp;it&nbsp;is&nbsp;allowed</span></dd></dl>
+ <dl><dt><a name="-append_row"><strong>append_row</strong></a>(table_name: str, column_names: list[str], row: list, con: pyodbc.Connection, cursor: pyodbc.Cursor)</dt><dd><span class="code">Appends&nbsp;a&nbsp;row&nbsp;to&nbsp;an&nbsp;arbitrary&nbsp;table&nbsp;in&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table_name&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;table,&nbsp;must&nbsp;follow&nbsp;the&nbsp;convention&nbsp;Some_Table_Name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;column_names&nbsp;(list[str]):&nbsp;The&nbsp;names&nbsp;of&nbsp;the&nbsp;columns,&nbsp;must&nbsp;follow&nbsp;the&nbsp;convention&nbsp;some_column_name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;(list):&nbsp;The&nbsp;values&nbsp;in&nbsp;the&nbsp;row,&nbsp;can&nbsp;be&nbsp;any&nbsp;datatype,&nbsp;but&nbsp;must&nbsp;be&nbsp;the&nbsp;same&nbsp;length&nbsp;as&nbsp;column_names<br>
+&nbsp;&nbsp;&nbsp;&nbsp;con&nbsp;(pyodbc.Connection):&nbsp;Connection&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cursor&nbsp;(pyodbc.Cursor):&nbsp;Cursor&nbsp;object</span></dd></dl>
+ <dl><dt><a name="-clean_reserved_words"><strong>clean_reserved_words</strong></a>(value: str) -&gt; str</dt></dl>
+ <dl><dt><a name="-connect"><strong>connect</strong></a>() -&gt; tuple[pyodbc.Connection, pyodbc.Cursor]</dt><dd><span class="code">Connects&nbsp;to&nbsp;a&nbsp;MySQL&nbsp;database&nbsp;using&nbsp;pyodbc<br>
+&nbsp;<br>
+Requires&nbsp;the&nbsp;MySQL&nbsp;ODBC&nbsp;8.1&nbsp;Unicode&nbsp;Driver&nbsp;to&nbsp;be&nbsp;installed<br>
+&nbsp;<br>
+Uses&nbsp;the&nbsp;environment&nbsp;variables:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DATABASE_PROJECT_IP:&nbsp;The&nbsp;IP&nbsp;address&nbsp;of&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DATABASE_PROJECT_PORT:&nbsp;The&nbsp;port&nbsp;of&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DATABASE_PROJECT_USERNAME:&nbsp;The&nbsp;username&nbsp;of&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DATABASE_PROJECT_PASSWORD:&nbsp;The&nbsp;password&nbsp;of&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DATABASE_PROJECT_DATABASE:&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tuple:&nbsp;A&nbsp;tuple&nbsp;containing&nbsp;the&nbsp;connection&nbsp;and&nbsp;cursor&nbsp;object<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Exception:&nbsp;If&nbsp;any&nbsp;of&nbsp;the&nbsp;required&nbsp;environment&nbsp;variables&nbsp;are&nbsp;missing</span></dd></dl>
+ <dl><dt><a name="-convert_to_python_type"><strong>convert_to_python_type</strong></a>(value)</dt><dd><span class="code">Converts&nbsp;a&nbsp;value&nbsp;to&nbsp;the&nbsp;correct&nbsp;python&nbsp;type&nbsp;if&nbsp;possible<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;(any):&nbsp;The&nbsp;value&nbsp;to&nbsp;convert<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;any:&nbsp;The&nbsp;converted&nbsp;value,&nbsp;or&nbsp;the&nbsp;original&nbsp;value&nbsp;if&nbsp;it&nbsp;could&nbsp;not&nbsp;be&nbsp;converted</span></dd></dl>
+ <dl><dt><a name="-drop_all"><strong>drop_all</strong></a>(con: pyodbc.Connection, cursor: pyodbc.Cursor)</dt><dd><span class="code">Drops&nbsp;the&nbsp;'Project'&nbsp;database&nbsp;and&nbsp;creates&nbsp;a&nbsp;new&nbsp;one<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;con&nbsp;(pyodbc.Connection):&nbsp;The&nbsp;connection&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cursor&nbsp;(pyodbc.Cursor):&nbsp;The&nbsp;cursor&nbsp;object</span></dd></dl>
+ <dl><dt><a name="-table_creator"><strong>table_creator</strong></a>(table_schema: dict, con: pyodbc.Connection, cursor: pyodbc.Cursor)</dt><dd><span class="code">Creates&nbsp;a&nbsp;table&nbsp;in&nbsp;the&nbsp;database&nbsp;using&nbsp;a&nbsp;json&nbsp;schema<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table_schema&nbsp;(dict):&nbsp;The&nbsp;schema&nbsp;of&nbsp;the&nbsp;table&nbsp;to&nbsp;create<br>
+&nbsp;&nbsp;&nbsp;&nbsp;con&nbsp;(pyodbc.Connection):&nbsp;Connection&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cursor&nbsp;(pyodbc.Cursor):&nbsp;Cursor&nbsp;object<br>
+&nbsp;<br>
+example_schema:<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"Person",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"columns":&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"id",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"datatype":&nbsp;"INT",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constraints":&nbsp;["NOT&nbsp;NULL",&nbsp;"AUTO_INCREMENT",&nbsp;"PRIMARY&nbsp;KEY"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"name",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"datatype":&nbsp;"VARCHAR(255)",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constraints":&nbsp;["NOT&nbsp;NULL"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"age",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"datatype":&nbsp;"INT",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constraints":&nbsp;["NOT&nbsp;NULL"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"is_active",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"datatype":&nbsp;"BOOLEAN",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constraints":&nbsp;["NOT&nbsp;NULL"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"foreign_keys":&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;"person_id",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"references_table":&nbsp;"Person",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"references_column":&nbsp;"id",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+}</span></dd></dl>
+</td></tr></table>
+</body></html>
