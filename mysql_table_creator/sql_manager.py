@@ -4,68 +4,6 @@ import os
 import re
 import json
 
-
-def connect() -> tuple[pyodbc.Connection, pyodbc.Cursor]:
-    """Connects to a MySQL database using pyodbc
-
-    Requires the MySQL ODBC 8.1 Unicode Driver to be installed
-
-    Uses the environment variables:
-        DATABASE_PROJECT_IP: The IP address of the database
-        DATABASE_PROJECT_PORT: The port of the database
-        DATABASE_PROJECT_USERNAME: The username of the database
-        DATABASE_PROJECT_PASSWORD: The password of the database
-        DATABASE_PROJECT_DATABASE: The name of the database
-
-    Returns:
-        tuple: A tuple containing the connection and cursor object
-
-    Raises:
-        Exception: If any of the required environment variables are missing
-    """
-
-    # load sql literals from file, provides sql_literals["datatypes"] and sql_literals["reserved_words"]
-    global sql_literals
-
-    lib_dir = os.path.dirname(os.path.abspath(__file__))
-    with open(lib_dir + "/sql_literals.json", "r") as f:
-        sql_literals = json.load(f)
-
-    ip = os.getenv("DATABASE_PROJECT_IP")
-    port = os.getenv("DATABASE_PROJECT_PORT")
-    username = os.getenv("DATABASE_PROJECT_USERNAME")
-    password = os.getenv("DATABASE_PROJECT_PASSWORD")
-    database = os.getenv("DATABASE_PROJECT_DATABASE")
-
-    if not (ip and port and username and password and database):
-        raise Exception("Missing environment variables")
-
-    con_string = f"DRIVER={{MySQL ODBC 8.1 Unicode Driver}};SERVER={ip};PORT={port};DATABASE={database};UID={username};PWD={password};"
-
-    con = pyodbc.connect(con_string)
-    logging.info("Connected to database")
-
-    cursor = con.cursor()
-
-    return con, cursor
-
-
-def drop_all(con: pyodbc.Connection, cursor: pyodbc.Cursor):
-    """Drops the 'Project' database and creates a new one
-
-    Args:
-        con (pyodbc.Connection): The connection object
-        cursor (pyodbc.Cursor): The cursor object
-    """
-    logging.info("Resetting database")
-    cursor.execute("DROP DATABASE IF EXISTS Project;")
-    cursor.execute("CREATE DATABASE Project;")
-    cursor.execute("USE Project;")
-    cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
-    con.commit()
-    logging.info("Database reset")
-
-
 def clean_reserved_words(value: str) -> str:
     if value.upper() in sql_literals["reserved_words"]:
         return f"`{value}`"
@@ -97,9 +35,25 @@ def allowed_type(type: str) -> str:
 
 
 def allowed_constraint(constraint: str) -> str:
-    # TODO implement
-    pass
-    return constraint
+    """Check if a sql constraint is allowed, prevents sql injection
+
+    Args:
+        constraint (str): The sql constraint to check
+
+    Raises:
+        ValueError: If the constraint is not allowed
+
+    Returns:
+        str: the constraint (made uppercase) if it is allowed
+    """
+    if any([
+            re.match(allowed_constraint, constraint.upper())
+            for allowed_constraint in sql_literals["constraints"]
+    ]):
+        return constraint.upper()
+    else:
+        logging.error(f"Constraint {constraint} not allowed")
+        raise ValueError(f"Constraint {constraint} not allowed")
 
 
 def allowed_value_table(value: str) -> str:
@@ -173,8 +127,51 @@ def convert_to_python_type(value):
         return value
 
 
-#######################################################################################
+##################### USER ACCESSIBLE METHODS #####################
 
+def connect() -> tuple[pyodbc.Connection, pyodbc.Cursor]:
+    """Connects to a MySQL database using pyodbc
+
+    Requires the MySQL ODBC 8.1 Unicode Driver to be installed
+
+    Uses the environment variables:
+        DATABASE_PROJECT_IP: The IP address of the database
+        DATABASE_PROJECT_PORT: The port of the database
+        DATABASE_PROJECT_USERNAME: The username of the database
+        DATABASE_PROJECT_PASSWORD: The password of the database
+        DATABASE_PROJECT_DATABASE: The name of the database
+
+    Returns:
+        tuple: A tuple containing the connection and cursor object
+
+    Raises:
+        Exception: If any of the required environment variables are missing
+    """
+
+    # load sql literals from file, provides sql_literals["datatypes"] and sql_literals["reserved_words"]
+    global sql_literals
+
+    lib_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(lib_dir + "/sql_literals.json", "r") as f:
+        sql_literals = json.load(f)
+
+    ip = os.getenv("DATABASE_PROJECT_IP")
+    port = os.getenv("DATABASE_PROJECT_PORT")
+    username = os.getenv("DATABASE_PROJECT_USERNAME")
+    password = os.getenv("DATABASE_PROJECT_PASSWORD")
+    database = os.getenv("DATABASE_PROJECT_DATABASE")
+
+    if not (ip and port and username and password and database):
+        raise Exception("Missing environment variables")
+
+    con_string = f"DRIVER={{MySQL ODBC 8.1 Unicode Driver}};SERVER={ip};PORT={port};DATABASE={database};UID={username};PWD={password};"
+
+    con = pyodbc.connect(con_string)
+    logging.info("Connected to database")
+
+    cursor = con.cursor()
+
+    return con, cursor
 
 def table_creator(table_schema: dict, con: pyodbc.Connection, cursor: pyodbc.Cursor):
     """Creates a table in the database using a json schema

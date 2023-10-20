@@ -138,5 +138,16 @@
         "BOOL",
         "SERIAL",
         "JSON"
+    ],
+    "constraints": [
+        "PRIMARY KEY",
+        "UNIQUE",
+        "FOREIGN KEY",
+        "CHECK",
+        "DEFAULT",
+        "NOT NULL",
+        "NULL",
+        "AUTO_INCREMENT",
+        "REFERENCES"
     ]
 }

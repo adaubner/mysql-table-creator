@@ -8,7 +8,7 @@
 <table class="heading">
 <tr class="heading-text decor">
 <td class="title">&nbsp;<br><strong class="title">sql_manager</strong></td>
-<td class="extra"><a href=".">index</a><br><a href="file:/home/andy/Code/mysql_table_creator/sql_manager.py">/home/andy/Code/mysql_table_creator/sql_manager.py</a></td></tr></table>
+<td class="extra"><a href=".">index</a><br><a href="file:/home/andy/Code/mysql-table-creator/mysql_table_creator/sql_manager.py">/home/andy/Code/mysql-table-creator/mysql_table_creator/sql_manager.py</a></td></tr></table>
     <p></p>
 <p>
 <table class="section">
@@ -27,7 +27,16 @@
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
     
 <tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
-<td class="singlecolumn"><dl><dt><a name="-allowed_constraint"><strong>allowed_constraint</strong></a>(constraint: str) -&gt; str</dt></dl>
+<td class="singlecolumn"><dl><dt><a name="-allowed_constraint"><strong>allowed_constraint</strong></a>(constraint: str) -&gt; str</dt><dd><span class="code">Check&nbsp;if&nbsp;a&nbsp;sql&nbsp;constraint&nbsp;is&nbsp;allowed,&nbsp;prevents&nbsp;sql&nbsp;injection<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;constraint&nbsp;(str):&nbsp;The&nbsp;sql&nbsp;constraint&nbsp;to&nbsp;check<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;constraint&nbsp;is&nbsp;not&nbsp;allowed<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;str:&nbsp;the&nbsp;constraint&nbsp;(made&nbsp;uppercase)&nbsp;if&nbsp;it&nbsp;is&nbsp;allowed</span></dd></dl>
  <dl><dt><a name="-allowed_type"><strong>allowed_type</strong></a>(type: str) -&gt; str</dt><dd><span class="code">Check&nbsp;if&nbsp;a&nbsp;sql&nbsp;data&nbsp;type&nbsp;is&nbsp;allowed,&nbsp;prevents&nbsp;sql&nbsp;injection<br>
 &nbsp;<br>
 The&nbsp;datatype&nbsp;is&nbsp;checked&nbsp;agains&nbsp;a&nbsp;list&nbsp;of&nbsp;allowed&nbsp;data&nbsp;types&nbsp;in&nbsp;MySQL&nbsp;8.1<br>
@@ -92,11 +101,6 @@ Args:<br>
 &nbsp;<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;any:&nbsp;The&nbsp;converted&nbsp;value,&nbsp;or&nbsp;the&nbsp;original&nbsp;value&nbsp;if&nbsp;it&nbsp;could&nbsp;not&nbsp;be&nbsp;converted</span></dd></dl>
- <dl><dt><a name="-drop_all"><strong>drop_all</strong></a>(con: pyodbc.Connection, cursor: pyodbc.Cursor)</dt><dd><span class="code">Drops&nbsp;the&nbsp;'Project'&nbsp;database&nbsp;and&nbsp;creates&nbsp;a&nbsp;new&nbsp;one<br>
-&nbsp;<br>
-Args:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;con&nbsp;(pyodbc.Connection):&nbsp;The&nbsp;connection&nbsp;object<br>
-&nbsp;&nbsp;&nbsp;&nbsp;cursor&nbsp;(pyodbc.Cursor):&nbsp;The&nbsp;cursor&nbsp;object</span></dd></dl>
  <dl><dt><a name="-table_creator"><strong>table_creator</strong></a>(table_schema: dict, con: pyodbc.Connection, cursor: pyodbc.Cursor)</dt><dd><span class="code">Creates&nbsp;a&nbsp;table&nbsp;in&nbsp;the&nbsp;database&nbsp;using&nbsp;a&nbsp;json&nbsp;schema<br>
 &nbsp;<br>
 Args:<br>
